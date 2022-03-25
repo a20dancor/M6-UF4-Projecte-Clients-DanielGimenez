@@ -11,11 +11,13 @@ import java.util.List;
 public class ClientDAO implements IClientsDAO {
 
 	static Connection con = null;
+	Boolean obert = false;
 
 	@Override
 	public void obrir() {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dani", "dani", "root");
+			obert = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -38,7 +40,7 @@ public class ClientDAO implements IClientsDAO {
 
 	@Override
 	public IClient read(String nif) {
-		String select = "SELECT * FROM CLIENTS WHERE NIF='" + nif;
+		String select = "SELECT * FROM CLIENTS WHERE NIF='" + nif+"'";
 		IClient client = new Client();
 		Statement stat;
 		try {
@@ -96,8 +98,9 @@ public class ClientDAO implements IClientsDAO {
 		}
 	}
 
+	@Override
 	public void delete(IClient client) {
-		String delete = "DELETE * FROM CLIENTS WHERE NIF ='" + client.getNIF() + "'";
+		String delete = "DELETE FROM CLIENTS WHERE NIF ='" + client.getNIF() + "'";
 		Statement stat;
 		try {
 			stat = con.createStatement();
@@ -110,13 +113,19 @@ public class ClientDAO implements IClientsDAO {
 
 	@Override
 	public void tancar() {
-		try {
-			if (con != null || !con.isClosed()) {
-				con.close();
+		if (obert) {
+			try {
+				if (con != null || !con.isClosed()) {
+					con.close();
+					obert=false;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		else {
+			throw new RuntimeException("S'ha de executar el metode obrir() abans");
 		}
 	}
 }

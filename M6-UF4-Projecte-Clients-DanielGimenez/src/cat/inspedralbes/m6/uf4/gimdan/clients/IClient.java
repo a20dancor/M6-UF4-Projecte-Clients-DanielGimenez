@@ -10,7 +10,7 @@ public interface IClient {
 	 * @param telefon El nou telefon a afegir.
 	 * @throws RuntimeException Si el telefon no te 9 xifres com a minim
 	 */
-	public void addTelefon(String telefon);
+	public void addTelefon(ITelefon telefon);
 
 	/**
 	 * Elimina el telefon del client. Si existeixen diverses copies nomes s'elimina la primera.
@@ -25,14 +25,14 @@ public interface IClient {
 	 * @param telefons Una List amb els telefons.
 	 * @throws RuntimeException Si la List es <code>null</code>
 	 */
-	public void setTelefons(List<String> telefons);
+	public void setTelefons(List<ITelefon> telefons);
 	
 	/**
 	 * Obte la llista de telefons del client. 
 	 * 
 	 * @return Una List amb els telefons. Si no n'hi ha, retorna una List buida.
 	 */
-	public List<String> getTelefons();
+	public List<ITelefon> getTelefons();
 
 	/**
 	 * Canvia el nom del client.

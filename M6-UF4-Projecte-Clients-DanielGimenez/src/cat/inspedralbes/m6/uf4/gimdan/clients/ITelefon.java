@@ -5,5 +5,5 @@ public interface ITelefon {
 	void setTelefon(String telefon);
 	String getNifClient();
 	void setNifClient(String nifClient);
-	
+	String toString();
 }

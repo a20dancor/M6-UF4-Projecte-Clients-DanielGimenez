@@ -6,15 +6,15 @@ public interface ITelefonDAO {
 
 	void obrir();
 	
-	void create(ITelefon telefon);
+	void create(List<ITelefon> telefon);
 	
-	ITelefon read(String nif);
+	List<ITelefon>read(String nif);
 	
 	List<ITelefon> readAll();
 	
-	void update(ITelefon telefon);
+	void update(List<ITelefon> telefons);
 	
-	void delete(ITelefon telefon);
+	void delete(String nif);
 	
 	void tancar();
 	

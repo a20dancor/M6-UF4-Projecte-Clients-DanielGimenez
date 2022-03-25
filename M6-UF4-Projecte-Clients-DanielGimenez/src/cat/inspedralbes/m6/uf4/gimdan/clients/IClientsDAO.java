@@ -48,6 +48,9 @@ public interface IClientsDAO {
 	 */
 	void update(IClient client);
 
+	
+	void delete(IClient client);
+	
 	/**
 	 * Finalitza el treball amb el dao.
 	 * 

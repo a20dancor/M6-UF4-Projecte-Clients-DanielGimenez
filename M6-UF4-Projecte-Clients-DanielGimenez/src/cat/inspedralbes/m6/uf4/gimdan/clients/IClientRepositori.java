@@ -8,7 +8,7 @@ public interface IClientRepositori {
 	
 	IClient read(String nif);
 	
-	List<IClient> readAll();
+	void readAll();
 	
 	void update(IClient client);
 	

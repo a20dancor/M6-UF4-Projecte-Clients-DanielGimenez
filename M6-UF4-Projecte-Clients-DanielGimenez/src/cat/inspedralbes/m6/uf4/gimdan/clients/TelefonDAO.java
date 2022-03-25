@@ -24,12 +24,16 @@ public class TelefonDAO implements ITelefonDAO {
 	}
 
 	@Override
-	public void create(ITelefon telefon) {
-		String insert = "Insert into TELEFONS VALUES('" + telefon.getTelefon() + "', '" + telefon.getNifClient() + "')";
+	public void create(List<ITelefon> llistaTelefons) {
 		Statement stat;
 		try {
 			stat = con.createStatement();
-			stat.executeUpdate(insert);
+			for (int i = 0; i < llistaTelefons.size(); i++) {
+				String insert = "Insert into TELEFONS VALUES('" + llistaTelefons.get(i).getTelefon() + "', '"
+						+ llistaTelefons.get(i).getNifClient() + "')";
+				stat.executeUpdate(insert);
+			}
+
 			stat.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -39,16 +43,19 @@ public class TelefonDAO implements ITelefonDAO {
 	}
 
 	@Override
-	public ITelefon read(String nif) {
-		String select = "SELECT * FROM CLIENTS WHERE NIF='" + nif;
-		ITelefon telefon = new Telefon();
+	public List<ITelefon> read(String nif) {
+		List<ITelefon> llistaTelefons = new ArrayList<>();
+		String select = "SELECT * FROM TELEFONS WHERE NIF_CLIENT='" + nif + "'";
+
 		Statement stat;
 		try {
 			stat = con.createStatement();
 			ResultSet rs = stat.executeQuery(select);
 			while (rs.next()) {
+				ITelefon telefon = new Telefon();
 				telefon.setTelefon(rs.getString(1));
 				telefon.setNifClient(rs.getString(2));
+				llistaTelefons.add(telefon);
 			}
 			rs.close();
 			stat.close();
@@ -57,12 +64,12 @@ public class TelefonDAO implements ITelefonDAO {
 			e.printStackTrace();
 		}
 
-		return telefon;
+		return llistaTelefons;
 	}
 
 	@Override
 	public List<ITelefon> readAll() {
-		String select = "SELECT * FROM CLIENTS";
+		String select = "SELECT * FROM TELEFONS";
 		List<ITelefon> llistaTelefons = new ArrayList<>();
 
 		Statement stat;
@@ -84,23 +91,32 @@ public class TelefonDAO implements ITelefonDAO {
 	}
 
 	@Override
-	public void update(ITelefon telefon) {
-		String update = "Update TELEFON SET NIF_CLIENT = '" + telefon.getNifClient() + "' WHERE TELEFON = '"
-				+ telefon.getTelefon() + "'";
-		Statement stat;
-		try {
-			stat = con.createStatement();
-			stat.executeUpdate(update);
-			stat.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void update(List<ITelefon> telefons) {
+		List<ITelefon> llistaAnterior = read(telefons.get(0).getNifClient());
+		for (int i = 0; i < llistaAnterior.size(); i++) {
+			System.out.println(llistaAnterior.get(i));
 		}
+		System.out.println("Nova llista");
+		for (int i = 0; i < llistaAnterior.size(); i++) {
+			System.out.println(llistaAnterior.get(i));
+		}
+		
+//		for (int i = 0; i < telefons.size(); i++) {
+//			llistaAnterior.add(telefons.get(i));
+//		}
+//		for (int i = 0; i < llistaAnterior.size(); i++) {
+//			System.out.println(llistaAnterior.get(i));
+//		}
+		delete(telefons.get(0).getNifClient());
+//		for (int i = 0; i < llistaAnterior.size(); i++) {
+//			create(llistaAnterior);
+//		}
 
 	}
 
 	@Override
-	public void delete(ITelefon telefon) {
-		String delete = "DELETE * FROM TELEFON WHERE NIF_CLIENT ='" + telefon.getNifClient() + "'";
+	public void delete(String nif) {
+		String delete = "DELETE FROM TELEFONS WHERE NIF_CLIENT ='" + nif + "'";
 		Statement stat;
 		try {
 			stat = con.createStatement();

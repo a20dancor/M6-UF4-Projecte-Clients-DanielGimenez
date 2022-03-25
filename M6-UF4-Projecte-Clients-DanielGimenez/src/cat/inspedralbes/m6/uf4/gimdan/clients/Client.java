@@ -7,16 +7,16 @@ public class Client implements IClient {
 
 	String nom;
 	String nif;
-	List<String> telefons;
+	List<ITelefon> telefons;
 
 	public Client() {
 		telefons = new ArrayList<>();
 	}
 
 	@Override
-	public void addTelefon(String telefon) {
+	public void addTelefon(ITelefon telefon) {
 
-		if (telefon.length() >= 9) {
+		if (telefon.getTelefon().length() >= 9) {
 			telefons.add(telefon);
 		} else {
 			throw new RuntimeException("El telefon ha de tenir una mida de 9 caracters minim.");
@@ -31,7 +31,7 @@ public class Client implements IClient {
 	}
 
 	@Override
-	public void setTelefons(List<String> telefons) {
+	public void setTelefons(List<ITelefon> telefons) {
 
 		if (telefons == null) {
 			throw new RuntimeException("La llista de telefons es null");
@@ -42,7 +42,7 @@ public class Client implements IClient {
 	}
 
 	@Override
-	public List<String> getTelefons() {
+	public List<ITelefon> getTelefons() {
 		return telefons;
 	}
 

@@ -16,5 +16,9 @@ public class Telefon implements ITelefon{
 	public void setNifClient(String nifClient) {
 		this.nifClient = nifClient;
 	}
+	@Override
+	public String toString() {
+		return "Telefon [telefon=" + telefon + ", nifClient=" + nifClient + "]";
+	}
 
 }

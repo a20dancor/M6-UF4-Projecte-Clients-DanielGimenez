@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientDAO implements IClientsDAO {
+public class TelefonDAO implements ITelefonDAO {
 
 	static Connection con = null;
 
@@ -20,11 +20,12 @@ public class ClientDAO implements IClientsDAO {
 			e.printStackTrace();
 
 		}
+
 	}
 
 	@Override
-	public void create(IClient client) {
-		String insert = "Insert into CLIENTS VALUES('" + client.getNIF() + "', '" + client.getNom() + "')";
+	public void create(ITelefon telefon) {
+		String insert = "Insert into TELEFONS VALUES('" + telefon.getTelefon() + "', '" + telefon.getNifClient() + "')";
 		Statement stat;
 		try {
 			stat = con.createStatement();
@@ -34,19 +35,20 @@ public class ClientDAO implements IClientsDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
-	public IClient read(String nif) {
+	public ITelefon read(String nif) {
 		String select = "SELECT * FROM CLIENTS WHERE NIF='" + nif;
-		IClient client = new Client();
+		ITelefon telefon = new Telefon();
 		Statement stat;
 		try {
 			stat = con.createStatement();
 			ResultSet rs = stat.executeQuery(select);
 			while (rs.next()) {
-				client.setNIF(rs.getString(1));
-				client.setNom(rs.getString(2));
+				telefon.setTelefon(rs.getString(1));
+				telefon.setNifClient(rs.getString(2));
 			}
 			rs.close();
 			stat.close();
@@ -55,49 +57,50 @@ public class ClientDAO implements IClientsDAO {
 			e.printStackTrace();
 		}
 
-		return client;
+		return telefon;
 	}
 
 	@Override
-	public List<IClient> readAll() {
+	public List<ITelefon> readAll() {
 		String select = "SELECT * FROM CLIENTS";
-		List<IClient> llistaClients = new ArrayList<>();
+		List<ITelefon> llistaTelefons = new ArrayList<>();
 
 		Statement stat;
 		try {
 			stat = con.createStatement();
 			ResultSet rs = stat.executeQuery(select);
 			while (rs.next()) {
-				IClient client = new Client();
-				client.setNIF(rs.getString(1));
-				client.setNom(rs.getString(2));
-				llistaClients.add(client);
+				ITelefon telefon = new Telefon();
+				telefon.setTelefon(rs.getString(1));
+				telefon.setNifClient(rs.getString(2));
+				llistaTelefons.add(telefon);
 			}
 			rs.close();
 			stat.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return llistaClients;
+		return llistaTelefons;
 	}
 
 	@Override
-	public void update(IClient client) {
-		String update = "Update CLIENTS SET NOM = '" + client.getNom() + "' WHERE NIF = '" + client.getNIF() + "'";
+	public void update(ITelefon telefon) {
+		String update = "Update TELEFON SET NIF_CLIENT = '" + telefon.getNifClient() + "' WHERE TELEFON = '"
+				+ telefon.getTelefon() + "'";
 		Statement stat;
 		try {
 			stat = con.createStatement();
 			stat.executeUpdate(update);
 			stat.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
-	public void delete(IClient client) {
-		String delete = "DELETE * FROM CLIENTS WHERE NIF ='" + client.getNIF() + "'";
+	@Override
+	public void delete(ITelefon telefon) {
+		String delete = "DELETE * FROM TELEFON WHERE NIF_CLIENT ='" + telefon.getNifClient() + "'";
 		Statement stat;
 		try {
 			stat = con.createStatement();
@@ -118,5 +121,7 @@ public class ClientDAO implements IClientsDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
+
 }

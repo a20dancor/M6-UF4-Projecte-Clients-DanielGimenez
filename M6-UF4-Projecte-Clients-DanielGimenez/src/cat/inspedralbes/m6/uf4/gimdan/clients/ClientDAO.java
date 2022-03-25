@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDAO implements IClientsDAO {
@@ -60,7 +61,7 @@ public class ClientDAO implements IClientsDAO {
 	@Override
 	public List<IClient> readAll() {
 		String select = "SELECT * FROM CLIENTS";
-		List<IClient> llistaClients = null;
+		List<IClient> llistaClients = new ArrayList<>();
 
 		Statement stat;
 		try {

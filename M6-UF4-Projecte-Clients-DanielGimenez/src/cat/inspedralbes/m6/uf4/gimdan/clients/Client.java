@@ -55,4 +55,10 @@ public class Client implements IClient {
 		this.telefons = telefons;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [nom=" + nom + ", nif=" + nif + ", telefons=" + telefons + "]";
+	}
+
+
 }

@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class TelefonDAO implements ITelefonDAO {
 
@@ -93,24 +97,11 @@ public class TelefonDAO implements ITelefonDAO {
 	@Override
 	public void update(List<ITelefon> telefons) {
 		List<ITelefon> llistaAnterior = read(telefons.get(0).getNifClient());
-		for (int i = 0; i < llistaAnterior.size(); i++) {
-			System.out.println(llistaAnterior.get(i));
-		}
-		System.out.println("Nova llista");
-		for (int i = 0; i < llistaAnterior.size(); i++) {
-			System.out.println(llistaAnterior.get(i));
-		}
-		
-//		for (int i = 0; i < telefons.size(); i++) {
-//			llistaAnterior.add(telefons.get(i));
-//		}
-//		for (int i = 0; i < llistaAnterior.size(); i++) {
-//			System.out.println(llistaAnterior.get(i));
-//		}
+
+		telefons.removeAll(llistaAnterior);
+
 		delete(telefons.get(0).getNifClient());
-//		for (int i = 0; i < llistaAnterior.size(); i++) {
-//			create(llistaAnterior);
-//		}
+		create(telefons);
 
 	}
 

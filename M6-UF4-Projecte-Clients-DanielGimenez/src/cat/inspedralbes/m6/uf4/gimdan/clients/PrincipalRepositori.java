@@ -29,14 +29,17 @@ public class PrincipalRepositori {
 		//repositori.readAll();
 
 		client.setNom("NouNom");
+		
 		Telefon telefon3= new Telefon();
 		telefon3.setNifClient(client.getNIF());
-		telefon3.setTelefon("2222222222");
+		telefon3.setTelefon("222222222");
 		client.addTelefon(telefon3);
-		IClient c= repositori.read("123456789");
-		System.out.println(c);
-
 		repositori.update(client); /*sembla que funciona*/
+		
+//		IClient c= repositori.read("123456789");
+//		System.out.println(c);
+
+		
 		
 		
 	}

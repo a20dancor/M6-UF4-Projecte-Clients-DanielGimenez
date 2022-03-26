@@ -23,24 +23,34 @@ public class PrincipalRepositori {
 		
 		client.addTelefon(telefon2);
 		System.out.println(client);
-		repositori.delete(client);
-		repositori.create(client);
-		//repositori.delete(client); /*va bien*/
-		//repositori.readAll();
-
+		//repositori.delete(client);
+		//repositori.create(client);
+		
 		client.setNom("NouNom");
 		
 		Telefon telefon3= new Telefon();
 		telefon3.setNifClient(client.getNIF());
 		telefon3.setTelefon("222222222");
-		client.addTelefon(telefon3);
-		repositori.update(client); /*sembla que funciona*/
-		
-//		IClient c= repositori.read("123456789");
-//		System.out.println(c);
+//		client.addTelefon(telefon3);
+//		repositori.update(client); /*sembla que funciona*/
 
+		client.removeTelefon(telefon3.getTelefon());
+		repositori.update(client);
 		
+		client.addTelefon(telefon3);
+		repositori.update(client);
 		
+		Client client2= new Client();
+		
+		client2.setNom("Client2Nom");
+		client2.setNIF("NIFCLIENT");
+		Telefon telefon4= new Telefon();
+		telefon4.setNifClient(client2.getNIF());
+		telefon4.setTelefon("333333333");
+		client2.addTelefon(telefon4);
+		repositori.delete(client2);
+		repositori.create(client2);
+		repositori.readAll();
 		
 	}
 }

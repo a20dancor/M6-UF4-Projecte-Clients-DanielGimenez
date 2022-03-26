@@ -40,7 +40,6 @@ public class TelefonDAO implements ITelefonDAO {
 
 			stat.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -64,7 +63,6 @@ public class TelefonDAO implements ITelefonDAO {
 			rs.close();
 			stat.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

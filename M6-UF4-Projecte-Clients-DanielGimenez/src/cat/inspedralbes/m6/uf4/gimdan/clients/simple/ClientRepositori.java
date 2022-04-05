@@ -47,6 +47,7 @@ public class ClientRepositori implements IClientRepositori {
 		daoTelefon.tancar();
 		daoClient.tancar();
 
+		
 	}
 
 	@Override

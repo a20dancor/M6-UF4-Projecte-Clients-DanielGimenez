@@ -1,4 +1,4 @@
-package cat.inspedralbes.m6.uf4.gimdan.clients;
+package cat.inspedralbes.m6.uf4.gimdan.clients.simple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +13,7 @@ public class ClientRepositori implements IClientRepositori {
 		daoClient.obrir();
 		daoTelefon.obrir();
 		daoClient.create(client);
-		List<ITelefon> llistaTelefons = new ArrayList<>();
-		for (int i = 0; i < client.getTelefons().size(); i++) {
-			ITelefon telefon = new Telefon();
-			telefon.setTelefon(client.getTelefons().get(i).getTelefon());
-			telefon.setNifClient(client.getNIF());
-			llistaTelefons.add(telefon);
-		}
-		daoTelefon.create(llistaTelefons);
+		daoTelefon.create(client);
 		daoTelefon.tancar();
 		daoClient.tancar();
 	}
@@ -41,22 +34,15 @@ public class ClientRepositori implements IClientRepositori {
 		daoClient.obrir();
 		daoTelefon.obrir();
 		List<IClient> llistaClients = daoClient.readAll();
-		List<ITelefon> llistaTelefons = daoTelefon.readAll();
 		System.out.println("Llista de Clients:");
 
-
 		for (int i = 0; i < llistaClients.size(); i++) {
-			for (int j = 0; j < llistaTelefons.size(); j++) {
-				if (llistaTelefons.get(j).getNifClient().equals(llistaClients.get(i).getNIF())) {
-					llistaClients.get(i).addTelefon(llistaTelefons.get(j));
-				}
-			}
+			llistaClients.get(i).setTelefons(daoTelefon.read(llistaClients.get(i).getNIF()));
 		}
-		
+
 		for (int i = 0; i < llistaClients.size(); i++) {
 			System.out.println(llistaClients.get(i));
 		}
-
 
 		daoTelefon.tancar();
 		daoClient.tancar();
@@ -68,7 +54,7 @@ public class ClientRepositori implements IClientRepositori {
 		daoClient.obrir();
 		daoTelefon.obrir();
 		daoClient.update(client);
-		daoTelefon.update(client.getTelefons());
+		daoTelefon.update(client);
 		daoTelefon.tancar();
 		daoClient.tancar();
 	}

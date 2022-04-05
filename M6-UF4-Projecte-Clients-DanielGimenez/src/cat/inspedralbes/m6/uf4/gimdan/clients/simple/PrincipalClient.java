@@ -32,16 +32,6 @@ public class PrincipalClient {
 
 	//Funcio auxiliar per esborrar tota la BD
 		private static void resetejaTot() {
-			IClientsDAO daoClients = new ClientDAO();
-			
-			daoClients.obrir();
-			
-			daoClients.reset();
-			
-			daoClients.tancar();
-			
-			
-			
 			
 			//DROP TABLE IF EXISTS CLIENTS;
 			//CREATE TABLE IF NOT EXISTS CLIENTS(NIF VARCHAR(9), NOM VARCHAR(20), PRIMARY KEY(NIF));
@@ -74,12 +64,13 @@ public class PrincipalClient {
 
 			// TODO: Crea un DAO de clients a partir de la teva classe real
 			IClientsDAO daoClients = new ClientDAO();
-
+			
 	/////////////////////////////////////////////////////////////////////////////
 	// FUNCIONAMENT NORMAL - COMPROVACIÓ GUARDAR, LLEGIR UN CLIENT I LLEGIR TOTS
 	/////////////////////////////////////////////////////////////////////////////		
 			try {
 				daoClients.obrir();
+				daoClients.reset();
 				// Guardar
 				daoClients.create(clientA);
 				daoClients.create(clientB);

@@ -22,6 +22,7 @@ public class ClientDAO implements IClientsDAO {
 			e.printStackTrace();
 
 		}
+		
 	}
 
 	@Override
@@ -157,14 +158,18 @@ public class ClientDAO implements IClientsDAO {
 	@Override
 	public void reset() {
 
-		String createTable = "CREATE TABLE IF NOT EXISTS CLIENTS(NIF VARCHAR(9), NOM VARCHAR(20), PRIMARY KEY(NIF))";
-		String dropTable = "DROP TABLE IF EXISTS CLIENTS";
+		String createTableClients = "CREATE TABLE IF NOT EXISTS CLIENTS(NIF VARCHAR(9), NOM VARCHAR(20), PRIMARY KEY(NIF))";
+		String dropTableClients = "DROP TABLE IF EXISTS CLIENTS";
+		String dropTableTelefons="DROP TABLE IF EXISTS TELEFONS";
+		String createTableTelefons="CREATE TABLE IF NOT EXISTS TELEFONS (TELEFON VARCHAR(9), NIF_CLIENT VARCHAR(9), PRIMARY KEY(TELEFON), FOREIGN KEY(NIF_CLIENT) REFERENCES CLIENTS(NIF))";
 
 		Statement stat;
 		try {
 			stat = con.createStatement();
-			stat.executeUpdate(dropTable);
-			stat.executeUpdate(createTable);
+			stat.executeUpdate(dropTableTelefons);
+			stat.executeUpdate(dropTableClients);
+			stat.executeUpdate(createTableClients);
+			stat.executeUpdate(createTableTelefons);
 			stat.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

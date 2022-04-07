@@ -18,6 +18,7 @@ public interface IClient {
 	 * @param telefon El telefon que s'eliminara. Si no existeix no ha causar cap tipus d'error. 
 	 * 
 	 */
+	
 	public void removeTelefon(String telefon);
 
 	/**

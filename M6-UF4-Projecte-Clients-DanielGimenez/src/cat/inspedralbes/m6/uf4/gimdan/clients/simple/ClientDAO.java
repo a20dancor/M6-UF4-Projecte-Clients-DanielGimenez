@@ -75,7 +75,7 @@ public class ClientDAO implements IClientsDAO {
 
 			return client;
 		} else {
-			return null;
+			throw new RuntimeException("NO ESTÀ OBERT EL DAO!");
 		}
 	}
 
@@ -103,23 +103,31 @@ public class ClientDAO implements IClientsDAO {
 			}
 			return llistaClients;
 		} else {
-			return null;
+			throw new RuntimeException("NO ESTÀ OBERT EL DAO!");
 		}
 	}
 
 	@Override
 	public void update(IClient client) {
 		if (obert) {
-			String update = "Update CLIENTS SET NOM = '" + client.getNom() + "' WHERE NIF = '" + client.getNIF() + "'";
-			Statement stat;
-			try {
-				stat = con.createStatement();
-				stat.executeUpdate(update);
-				stat.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (client.getNIF()!=null) {
+				String update = "Update CLIENTS SET NOM = '" + client.getNom() + "' WHERE NIF = '" + client.getNIF() + "'";
+				Statement stat;
+				try {
+					stat = con.createStatement();
+					stat.executeUpdate(update);
+					stat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			else {
+				throw new RuntimeException("EL NIF ES NULL");
+			}
+		
+		} else {
+			throw new RuntimeException("NO ESTÀ OBERT EL DAO!");
 		}
 	}
 
